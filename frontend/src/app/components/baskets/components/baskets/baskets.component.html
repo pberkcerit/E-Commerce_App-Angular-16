@@ -1,0 +1,46 @@
+<app-blank title="Basket" navMainTitle="Basket List" *ngIf="baskets.length > 0 else emptyBasket">
+    <div class="row">
+        <div class="col-md-9">
+            <app-table [tHeads]="
+            [
+            '#', 
+            'Product Image',
+            'Product Name', 
+            'Count', 
+            'Per Price', 
+            'Total Price', 
+            'Actions'
+            ]">
+                <tr *ngFor="let basket of baskets let index = index">
+                    <td>{{index + 1}}</td>
+                    <td>
+                        <img [src]="'http://localhost:5000/' + basket?.products[0]?.imageUrls[0].path" width="50" />
+                    </td>
+                    <td>{{basket.products[0]?.name}}</td>
+                    <td>{{basket?.quantity}}</td>
+                    <td>{{basket.price}}</td>
+                    <td>{{(basket.price * basket.quantity).toFixed(2)}}</td>
+                    <td>
+                        <button (click)="removeById(basket._id)" class="btn btn-outline-danger btn-sm" title="Delete">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </app-table>
+        </div>
+        <div class="col-md-3" style="border:1px solid #ccc; padding:10px;">
+            <h4 class="alert alert-danger">
+                Total Price: {{total}} $
+            </h4>
+            <button class="btn btn-danger w-100" (click)="createOrder()">
+                Pay
+            </button>
+        </div>
+    </div>
+</app-blank>
+
+<ng-template #emptyBasket>
+    <app-blank title="Basket" navMainTitle="Basket List">
+        <div class="alert alert-warning">Your basket is empty! <a routerLink="/">Go to home page </a></div>
+    </app-blank>
+</ng-template>

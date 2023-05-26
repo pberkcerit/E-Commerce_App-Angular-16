@@ -1,0 +1,58 @@
+<app-blank title="Home" navMainTitle="Home" navSubTitle="All Products">
+    <div class="row">
+        <div class="col-md-3 cerceve">
+            <ul>
+                <li (click)="changeSelectedCategory('','All Categories')"
+                    [ngClass]="request.categoryName == 'All Categories' ? 'active' : ''">All Categories</li>
+                <li (click)="changeSelectedCategory(category._id,category.name)"
+                    [ngClass]="request.categoryName == category.name ? 'active': '' "
+                    *ngFor="let category of categories">
+                    {{category.name}}</li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-7">
+                        <label for="searchKeywords">Search</label>
+                        <input [(ngModel)]="request.search" type="search" id="searchKeywords" class="form-control"
+                            placeholder="Enter the search keywords...">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filters">Filters</label>
+                        <select [(ngModel)]="request.priceFilter" class="form-control" id="filters">
+                            <option value="0">Please Select</option>
+                            <option value="1">Lower Price</option>
+                            <option value="-1">Upper Price</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Actions</label>
+                        <br>
+                        <button class="btn btn-outline-primary" (click)="getAll()">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4" *ngFor="let product of products let i = index">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <strong>{{product.name}}</strong>
+                        </div>
+                        <div class="card-body">
+                            <img [src]="'http://localhost:5000/' + product.imageUrls[0].path" alt="" width="200"
+                                height="200">
+                            <hr />
+                            <p><strong>Current Stock: {{product.stock}}</strong></p>
+                            <h4><strong>Per Price: {{product.price}}</strong> $</h4>
+                            <hr />
+                            <button *ngIf="product.stock > 0" class="btn btn-outline-success w-100" (click) = "addToBasket(product._id, product.price)">Add To Card</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</app-blank>

@@ -1,0 +1,35 @@
+<app-blank title="Orders" navMainTitle="Order List" *ngIf="orders.length > 0 else emptyOrder">
+    <app-table [tHeads]="
+    [
+    '#', 
+    'Order Created Date',
+    'Product Image',
+    'Product Name', 
+    'Count', 
+    'Per Price', 
+    'Total Price', 
+    ]">
+        <tr *ngFor="let order of orders let index = index">
+            <td>{{index + 1}}</td>
+            <td>{{order.createdDate | date: 'dd-MM-yyyy - hh:MM:SS'}}</td>
+            <td>
+                <img [src]="'http://localhost:5000/' + order?.products[0]?.imageUrls[0].path" width="50" />
+            </td>
+            <td>{{order.products[0]?.name}}</td>
+            <td>{{order?.quantity}}</td>
+            <td>{{order.price}}</td>
+            <td>{{(order.price * order.quantity).toFixed(2)}}</td>
+            <!-- <td>
+                <button (click)="removeById(order._id)" class="btn btn-outline-danger btn-sm" title="Delete">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </td> -->
+        </tr>
+    </app-table>
+</app-blank>
+
+<ng-template #emptyOrder>
+    <app-blank title="Orders" navMainTitle="Order List">
+        <div class="alert alert-warning">Your order list is empty! <a routerLink="/">Go to home page </a></div>
+    </app-blank>
+</ng-template>
