@@ -10,6 +10,7 @@ import { ToastrModule } from "ngx-toastr";
 import { AppComponent } from "./app/app.component";
 import { routes } from "./app/router";
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 bootstrapApplication(AppComponent, {
@@ -19,6 +20,7 @@ bootstrapApplication(AppComponent, {
       BrowserModule,
       CommonModule,
       SweetAlert2Module,
+      NgxSpinnerModule,
       BrowserAnimationsModule,
       ToastrModule.forRoot({
         closeButton: true,
